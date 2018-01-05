@@ -22,7 +22,7 @@ module Commontator
 
           validates_presence_of :thread
 
-          prepend ThreadWithCommontator
+          # prepend ThreadWithCommontator
         end
       end
 
