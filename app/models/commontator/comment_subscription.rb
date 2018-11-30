@@ -1,5 +1,5 @@
 module Commontator
-  class Subscription < ActiveRecord::Base
+  class CommentSubscription < ActiveRecord::Base
     belongs_to :subscriber, :polymorphic => true
     belongs_to :thread
 

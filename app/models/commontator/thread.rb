@@ -4,7 +4,7 @@ module Commontator
     belongs_to :commontable, :polymorphic => true
 
     has_many :comments, :dependent => :destroy
-    has_many :subscriptions, :dependent => :destroy
+    has_many :comment_subscriptions, :dependent => :destroy
 
     validates_presence_of :commontable, :unless => :is_closed?
     validates_uniqueness_of :commontable_id,
@@ -86,12 +86,12 @@ module Commontator
     end
 
     def subscribers
-      subscriptions.collect{|s| s.subscriber}
+      comment_subscriptions.collect{|s| s.subscriber}
     end
 
     def subscription_for(subscriber)
       return nil if !subscriber || !subscriber.is_commontator
-      subscriber.subscriptions.where(:thread_id => self.id).first
+      subscriber.comments_subscriptions.where(:thread_id => self.id).first
     end
 
     def subscribe(subscriber)
@@ -125,7 +125,7 @@ module Commontator
         self.commontable = nil
         save!
         new_thread.save!
-        subscriptions.each do |s|
+        comment_subscriptions.each do |s|
           s.thread = new_thread
           s.save!
         end

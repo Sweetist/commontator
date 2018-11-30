@@ -17,8 +17,8 @@ module Commontator
 
           has_many :comments,      :as => :creator,
                                    :class_name => 'Commontator::Comment'
-          has_many :subscriptions, :as => :subscriber,
-                                   :class_name => 'Commontator::Subscription',
+          has_many :comments_subscriptions, :as => :subscriber,
+                                   :class_name => 'Commontator::CommentSubscription',
                                    :dependent => :destroy
         end
       end
